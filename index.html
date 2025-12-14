@@ -6,16 +6,13 @@
 <title>Gentle</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{margin:0;padding:0;box-sizing:border-box}
 
 body{
   height:100vh;
   overflow:hidden;
   font-family:Georgia, serif;
   background:linear-gradient(135deg,#E6D2B8,#EAD7BF);
-  display:flex;
-  justify-content:center;
-  align-items:center;
 }
 
 /* pages */
@@ -37,23 +34,6 @@ body{
   pointer-events:auto;
 }
 
-/* navigation */
-.controls{
-  position:absolute;
-  bottom:20px;
-  display:flex;
-  gap:20px;
-}
-.controls button{
-  padding:10px 18px;
-  border:none;
-  border-radius:14px;
-  background:#6c5b7b;
-  color:#fff;
-  font-size:15px;
-  cursor:pointer;
-}
-
 /* rope */
 .rope{
   width:10px;
@@ -72,7 +52,24 @@ body{
   cursor:pointer;
 }
 
-/* photo (RECTANGLE, NOT CIRCLE) */
+/* fixed side buttons */
+.nav-btn{
+  position:fixed;
+  top:50%;
+  transform:translateY(-50%);
+  padding:10px 18px;
+  border:none;
+  border-radius:14px;
+  background:#6c5b7b;
+  color:#fff;
+  font-size:15px;
+  cursor:pointer;
+  display:none;
+}
+#backBtn{left:20px}
+#nextBtn{right:20px}
+
+/* photo */
 .photo{
   width:224px;
   height:363px;
@@ -82,14 +79,12 @@ body{
   margin:15px 0;
 }
 
-/* common animation layers */
+/* animation layers */
 .layer{
   position:absolute;
   inset:0;
   pointer-events:none;
 }
-
-/* hearts + stars */
 .layer span{
   position:absolute;
   animation:float 6s infinite linear;
@@ -142,10 +137,8 @@ body{
   <button class="pull-btn" onclick="next()">Pull</button>
 
   <div class="layer">
-    <span style="left:20%;top:90%">💖</span>
-    <span style="left:60%;top:95%">💗</span>
-    <span style="left:40%;top:92%">✨</span>
-    <span style="left:75%;top:94%">✨</span>
+    <span style="left:25%;top:92%">💖</span>
+    <span style="left:55%;top:95%">✨</span>
   </div>
 </div>
 
@@ -157,32 +150,31 @@ body{
   </p>
 
   <div class="layer">
-    <span style="left:25%;top:90%">💖</span>
-    <span style="left:55%;top:95%">✨</span>
-    <span style="left:75%;top:92%">💗</span>
+    <span style="left:30%;top:94%">💗</span>
+    <span style="left:70%;top:96%">✨</span>
   </div>
 </div>
 
-<!-- PAGE 3 (PHOTO + BUTTERFLIES ONLY) -->
+<!-- PAGE 3 -->
 <div class="page" id="p3">
-  <p style="font-size:22px;margin-bottom:8px">آنکھیں…</p>
+  <p style="font-size:22px">آنکھیں…</p>
 
   <img src="eye.jpg" class="photo">
 
-  <p style="font-size:20px;margin-top:8px">
+  <p style="font-size:20px">
     جو کہے بنا سب کہہ جائیں۔<br>
     خاموش، مگر بےحد روشن۔ 🌕
   </p>
 
   <div class="layer butterflies">
-    <span style="left:15%;top:85%">🦋</span>
-    <span style="left:40%;top:90%">🦋</span>
-    <span style="left:65%;top:88%">🦋</span>
-    <span style="left:85%;top:92%">🦋</span>
+    <span style="left:15%;top:90%">🦋</span>
+    <span style="left:40%;top:95%">🦋</span>
+    <span style="left:65%;top:92%">🦋</span>
+    <span style="left:85%;top:96%">🦋</span>
   </div>
 </div>
 
-<!-- PAGE 4 (BUBBLES) -->
+<!-- PAGE 4 -->
 <div class="page" id="p4">
   <p style="font-size:23px;line-height:1.7">
     بس ایک نرم سا خیال،<br>
@@ -190,42 +182,49 @@ body{
   </p>
 
   <div class="bubbles">
-    <span>🫧</span><span>💧</span><span>🫧</span><span>🫧</span>
+    <span>🫧</span><span>💧</span><span>🫧</span>
   </div>
 </div>
 
-<!-- PAGE 5 (BUBBLES) -->
+<!-- PAGE 5 -->
 <div class="page" id="p5">
   <p style="font-size:22px;line-height:1.7">
     Sometimes small things feel warm.<br>
-    A quiet smile can change a day.<br>
-    Nothing fancy, just honest moments.<br>
-    I hope this made you smile.
+    Quiet moments stay longer.<br>
+    Nothing extra, just honest vibes.<br>
+    Hope this made you smile.
   </p>
 
   <p style="margin-top:18px;font-size:18px">✍️ Eren~</p>
 
   <div class="bubbles">
-    <span>🫧</span><span>💧</span><span>🫧</span><span>✨</span>
+    <span>🫧</span><span>✨</span><span>🫧</span>
   </div>
 </div>
 
-<!-- controls -->
-<div class="controls">
-  <button onclick="prev()">Back</button>
-  <button onclick="next()">Next</button>
-</div>
+<!-- SIDE BUTTONS -->
+<button class="nav-btn" id="backBtn" onclick="prev()">Back</button>
+<button class="nav-btn" id="nextBtn" onclick="next()">Next</button>
 
 <script>
 let i=1;
-function show(n){
+function show(){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById('p'+n).classList.add('active');
+  document.getElementById('p'+i).classList.add('active');
+
+  if(i===1){
+    backBtn.style.display="none";
+    nextBtn.style.display="none";
+  }else{
+    backBtn.style.display="block";
+    nextBtn.style.display="block";
+  }
 }
-function next(){ if(i<5){i++;show(i)} }
-function prev(){ if(i>1){i--;show(i)} }
+function next(){ if(i<5){i++;show()} }
+function prev(){ if(i>1){i--;show()} }
 </script>
 
 </body>
 </html>
+
 
