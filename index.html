@@ -75,8 +75,12 @@ img.photo {
 @keyframes float {0%{transform:translateY(0px) translateX(0px);}50%{transform:translateY(-100px) translateX(20px);}100%{transform:translateY(0px) translateX(-20px);}}
 
 /* Butterflies & pink hearts animation for page 3 */
-.butterfly {position:absolute;font-size:26px;pointer-events:none;animation: flyUp 7s infinite ease-in-out;}
-@keyframes flyUp {0%{transform:translateY(0) rotate(0deg);opacity:0;}20%{opacity:1;}100%{transform:translateY(-250px) rotate(15deg);opacity:0;}}
+.butterfly {position:absolute;pointer-events:none;animation: flyUp 7s infinite ease-in-out;}
+@keyframes flyUp {
+  0% {transform:translateY(0) rotate(0deg);opacity:0;}
+  20% {opacity:1;}
+  100% {transform:translateY(-250px) rotate(15deg);opacity:0;}
+}
 </style>
 </head>
 <body>
@@ -187,4 +191,5 @@ for(let i=0;i<30;i++){
 
 </body>
 </html>
+
 
