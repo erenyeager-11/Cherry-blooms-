@@ -5,79 +5,94 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gentle Website</title>
 <style>
-  * {margin:0;padding:0;box-sizing:border-box;font-family:"Georgia", serif;}
+* {margin:0;padding:0;box-sizing:border-box;font-family:"Georgia", serif;}
 
-  body {
-    height:100vh;
-    overflow:hidden;
-    background: linear-gradient(135deg, #E6D2B8, #EAD7BF);
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+body {
+  height:100vh;
+  overflow:hidden;
+  background: linear-gradient(135deg, #E6D2B8, #EAD7BF);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  .page {
-    position:absolute;
-    width:100%;
-    height:100%;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    padding:20px;
-    transition: opacity 0.8s;
-    opacity:0;
-    pointer-events:none;
-  }
+.page {
+  position:absolute;
+  width:100%;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:20px;
+  transition: opacity 0.8s;
+  opacity:0;
+  pointer-events:none;
+}
 
-  .active {opacity:1;pointer-events:auto;}
+.active {opacity:1;pointer-events:auto;}
 
-  .rope {width:10px;height:200px;background:#B5651D;border-radius:5px;margin-bottom:20px;}
+.rope {width:10px;height:200px;background:#B5651D;border-radius:5px;margin-bottom:20px;}
 
-  .pull-btn {
-    padding:10px 20px;background:#FF6B6B;border:none;border-radius:10px;cursor:pointer;font-size:16px;color:white;
-  }
+.pull-btn {
+  padding:10px 20px;background:#FF6B6B;border:none;border-radius:10px;cursor:pointer;font-size:16px;color:white;
+}
 
-  img.photo {
-    width:224px;
-    height:363px;
-    border-radius:12px;
-    margin-bottom:15px;
-    object-fit:cover;
-    border:3px solid #fff;
-  }
+img.photo {
+  width:224px;
+  height:363px;
+  border-radius:12px;
+  margin-bottom:15px;
+  object-fit:cover;
+  border:3px solid #fff;
+}
 
-  /* SIDE BUTTONS FIXED */
-  #backBtn, #nextBtn {
-    position:fixed;
-    top:50%;
-    transform:translateY(-50%);
-    padding:10px 18px;
-    border:none;
-    border-radius:14px;
-    background:#6C5B7B;
-    color:white;
-    font-size:16px;
-    cursor:pointer;
-    z-index:1000;
-    display:none; /* initially hidden */
-  }
-  #backBtn{left:15px;}
-  #nextBtn{right:15px;}
+/* SIDE BUTTONS FIXED IN CORNERS */
+#backBtn, #nextBtn {
+  position:fixed;
+  padding:10px 18px;
+  border:none;
+  border-radius:14px;
+  background:#6C5B7B;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+  z-index:1000;
+  display:none;
+}
+#backBtn{left:15px; bottom:15px;}
+#nextBtn{right:15px; bottom:15px;}
 
-  /* Animated hearts and stars */
-  .heart, .star {
-    position:absolute;width:10px;height:10px;opacity:0.8;animation: float 5s linear infinite;
-  }
-  .heart {background:red;clip-path: polygon(50% 0%,61% 13%,75% 15%,82% 28%,75% 45%,50% 75%,25% 45%,18% 28%,25% 15%,39% 13%);}
-  .star {background:yellow;clip-path: polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);}
-  @keyframes float {0%{transform:translateY(0px) translateX(0px);}50%{transform:translateY(-100px) translateX(20px);}100%{transform:translateY(0px) translateX(-20px);}}
+/* Animated hearts and stars */
+.heart, .star {
+  position:absolute;width:10px;height:10px;opacity:0.8;animation: float 5s linear infinite;
+}
+.heart {background:red;clip-path: polygon(50% 0%,61% 13%,75% 15%,82% 28%,75% 45%,50% 75%,25% 45%,18% 28%,25% 15%,39% 13%);}
+.star {background:yellow;clip-path: polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);}
+@keyframes float {0%{transform:translateY(0px) translateX(0px);}50%{transform:translateY(-100px) translateX(20px);}100%{transform:translateY(0px) translateX(-20px);}}
 
-  /* Butterflies */
-  .butterfly {position:absolute;font-size:26px;animation: flyUp 7s infinite ease-in-out;pointer-events:none;}
-  @keyframes flyUp {0%{transform:translateY(0) rotate(0deg);opacity:0;}20%{opacity:1;}100%{transform:translateY(-250px) rotate(15deg);opacity:0;}}
+/* Butterflies */
+.butterfly {position:absolute;font-size:26px;animation: flyUp 7s infinite ease-in-out;pointer-events:none;}
+@keyframes flyUp {0%{transform:translateY(0) rotate(0deg);opacity:0;}20%{opacity:1;}100%{transform:translateY(-250px) rotate(15deg);opacity:0;}}
+
+/* Bubbles for last pages */
+.bubble {
+  position:absolute;
+  bottom:0;
+  width:10px;
+  height:10px;
+  background:rgba(173,216,230,0.7);
+  border-radius:50%;
+  pointer-events:none;
+  animation: rise 6s linear infinite;
+}
+@keyframes rise {
+  0% { transform: translateY(0) scale(1); opacity:0.7; }
+  50% { opacity:1; }
+  100% { transform: translateY(-400px) scale(1.2); opacity:0; }
+}
 </style>
 </head>
 <body>
@@ -122,7 +137,7 @@
   </p>
 </div>
 
-<!-- Side Buttons -->
+<!-- Corner Buttons -->
 <button id="backBtn" onclick="prevPage()">⬅️ Back</button>
 <button id="nextBtn" onclick="nextPage()">Next ➡️</button>
 
@@ -136,7 +151,6 @@ function showPage(n){
   }
   document.getElementById('page'+n).classList.add('active');
 
-  // show buttons only from page 2
   if(n>=2){
     document.getElementById('backBtn').style.display='block';
     document.getElementById('nextBtn').style.display='block';
@@ -179,6 +193,15 @@ for(let i=0;i<30;i++){
   star.style.height=star.style.width;
   star.style.animationDuration=(2+Math.random()*4)+'s';
   document.body.appendChild(star);
+}
+
+// Generate bubbles for last 2 pages
+for(let i=0;i<40;i++){
+  const bubble = document.createElement('div');
+  bubble.classList.add('bubble');
+  bubble.style.left=Math.random()*100+'vw';
+  bubble.style.animationDuration=(4+Math.random()*4)+'s';
+  document.body.appendChild(bubble);
 }
 </script>
 
