@@ -27,12 +27,13 @@ body {
   align-items:center;
   text-align:center;
   padding:20px;
-  transition: opacity 0.8s;
+  transition: opacity 0.8s, transform 0.8s;
   opacity:0;
   pointer-events:none;
+  transform: translateY(50px); /* initial slide */
 }
 
-.active {opacity:1;pointer-events:auto;}
+.active {opacity:1; pointer-events:auto; transform: translateY(0);}
 
 .rope {width:10px;height:200px;background:#B5651D;border-radius:5px;margin-bottom:20px;}
 
@@ -49,7 +50,7 @@ img.photo {
   border:3px solid #fff;
 }
 
-/* SIDE BUTTONS FIXED IN CORNERS */
+/* Corner Buttons */
 #backBtn, #nextBtn {
   position:fixed;
   padding:10px 18px;
@@ -76,23 +77,6 @@ img.photo {
 /* Butterflies */
 .butterfly {position:absolute;font-size:26px;animation: flyUp 7s infinite ease-in-out;pointer-events:none;}
 @keyframes flyUp {0%{transform:translateY(0) rotate(0deg);opacity:0;}20%{opacity:1;}100%{transform:translateY(-250px) rotate(15deg);opacity:0;}}
-
-/* Bubbles for last pages */
-.bubble {
-  position:absolute;
-  bottom:0;
-  width:10px;
-  height:10px;
-  background:rgba(173,216,230,0.7);
-  border-radius:50%;
-  pointer-events:none;
-  animation: rise 6s linear infinite;
-}
-@keyframes rise {
-  0% { transform: translateY(0) scale(1); opacity:0.7; }
-  50% { opacity:1; }
-  100% { transform: translateY(-400px) scale(1.2); opacity:0; }
-}
 </style>
 </head>
 <body>
@@ -194,16 +178,8 @@ for(let i=0;i<30;i++){
   star.style.animationDuration=(2+Math.random()*4)+'s';
   document.body.appendChild(star);
 }
-
-// Generate bubbles for last 2 pages
-for(let i=0;i<40;i++){
-  const bubble = document.createElement('div');
-  bubble.classList.add('bubble');
-  bubble.style.left=Math.random()*100+'vw';
-  bubble.style.animationDuration=(4+Math.random()*4)+'s';
-  document.body.appendChild(bubble);
-}
 </script>
 
 </body>
 </html>
+
